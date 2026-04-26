@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北欧行程 · 2026年5月</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1a2e;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --fjord: #2d6a7f;
+    --fjord-light: #4a90a4;
+    --gold: #d4a030;
+    --gold-strip: #e8b84a;
+    --gold-light: #fad98a;
+    --muted: #7a7060;
+    --border: #d4c9b0;
+    --transport-bg: #e8f2f6;
+    --accom-bg: #eef6ee;
+    --food-bg: #fdf3e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: #0d1f3c;
+    color: var(--paper);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 70%);
+  }
+
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: rgba(245,240,232,0.6);
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .route-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .route-stop {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--paper);
+    background: rgba(255,255,255,0.1);
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .route-arrow {
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  /* BUDGET STRIP */
+  .budget-strip {
+    background: var(--gold-strip);
+    padding: 14px 40px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .budget-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .budget-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(26,26,46,0.6);
+    text-transform: uppercase;
+  }
+
+  .budget-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* DAY CARD */
+  .day-card {
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    background: white;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .day-card:nth-child(1) { animation-delay: 0.05s; }
+  .day-card:nth-child(2) { animation-delay: 0.1s; }
+  .day-card:nth-child(3) { animation-delay: 0.15s; }
+  .day-card:nth-child(4) { animation-delay: 0.2s; }
+  .day-card:nth-child(5) { animation-delay: 0.25s; }
+  .day-card:nth-child(6) { animation-delay: 0.3s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-number {
+    background: var(--fjord);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px;
+  }
+
+  .day-n {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .day-info {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .day-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .day-body {
+    padding: 20px;
+  }
+
+  /* SEGMENT */
+  .segment {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 14px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .segment:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 28px;
+    bottom: -16px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .seg-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    z-index: 1;
+  }
+
+  .seg-icon.transport { background: var(--fjord); color: white; }
+  .seg-icon.sleep { background: var(--gold); color: var(--ink); }
+  .seg-icon.activity { background: var(--cream); color: var(--fjord); border: 1px solid var(--border); }
+
+  .seg-content {}
+
+  .seg-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .seg-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-time { background: var(--cream); color: var(--muted); }
+  .tag-price { background: #e8f4e8; color: #2d6b2d; }
+  .tag-tbd { background: #fff3e0; color: #b06000; }
+  .tag-transport { background: #e8f0f4; color: var(--fjord); }
+
+  .seg-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  .seg-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--fjord);
+    text-decoration: none;
+    border-bottom: 1px solid var(--fjord-light);
+  }
+
+  /* ACCOMMODATION */
+  .accom-bar {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .accom-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .accom-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .accom-price {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #2d6b2d;
+  }
+
+  /* FOOTER */
+  .footer-note {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .footer-note strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* TOTAL TABLE */
+  .total-table {
+    margin-top: 32px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .total-table-header {
+    background: #0d1f3c;
+    color: var(--paper);
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .total-row { display: flex; justify-content: space-between; padding: 10px 20px; font-size: 13px; border-bottom: 1px solid var(--border); background: white; }
+  .total-row.transport { background: var(--transport-bg); }
+  .total-row.accom { background: var(--accom-bg); }
+  .total-row.food { background: var(--food-bg); }
+  .total-row:last-child { border-bottom: none; }
+  .total-row.sum { background: var(--gold-light); font-weight: 600; font-size: 15px; }
+
+  .total-row .label { color: var(--muted); }
+  .total-row .amount { font-family: 'DM Mono', monospace; color: var(--ink); }
+  .total-row.sum .label, .total-row.sum .amount { color: var(--ink); }
+
+  @media (max-width: 600px) {
+    .header { padding: 40px 20px 36px; }
+    .budget-strip { padding: 14px 20px; gap: 24px; }
+    .day-header { grid-template-columns: 64px 1fr; }
+    .day-num { font-size: 22px; }
+    .day-title { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">游学自由行 · 2026</div>
+  <h1>北欧五日<em>小记</em></h1>
+  <div class="header-sub">5月12日—17日 · 丹麦 × 挪威 × 瑞典 · 2026</div>
+  <div class="route-bar">
+    <span class="route-stop">哥本哈根</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">奥斯陆</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">Myrdal</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">Flåm/Aurland</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">Gudvangen</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">Voss</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">奥斯陆</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">斯德哥尔摩</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">哥本哈根</span>
+    <span class="route-arrow">→</span>
+    <span class="route-stop">奥胡斯</span>
+  </div>
+</div>
+
+<div class="budget-strip">
+  <div class="budget-item">
+    <span class="budget-label">预计总花费（人均）</span>
+    <span class="budget-value">¥3,700–5,100</span>
+  </div>
+  <div class="budget-item">
+    <span class="budget-label">行程天数</span>
+    <span class="budget-value">6天</span>
+  </div>
+  <div class="budget-item">
+    <span class="budget-label">参考人数</span>
+    <span class="budget-value">1–4人</span>
+  </div>
+  <div class="budget-item">
+    <span class="budget-label">出发年份</span>
+    <span class="budget-value">2026</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- D1 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">1</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月12日 周一</div>
+        <div class="day-title">哥本哈根 → 奥斯陆</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon transport">🚢</div>
+        <div class="seg-content">
+          <div class="seg-title">DFDS游轮 哥本哈根 → 奥斯陆</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">5/12 16:30 出发 → 5/13 10:00 到达</span>
+            <span class="tag tag-price">518 DKK ≈ ¥530</span>
+            <span class="tag tag-transport">经济双层床舱（1–4人共舱）</span>
+          </div>
+          <div class="seg-note">购买来回票只使用去程（常见做法）。含一晚船舱住宿，5/13 下午4:30返程船无需乘坐。<br>
+          <a class="seg-link" href="https://www.gonordiccruiseline.dk/booking/#/cabin-fares" target="_blank">→ Go Nordic Cruiseline 购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">船上（含在票价中）</span>
+      <span class="accom-price">¥0</span>
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">2</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月13日 周二</div>
+        <div class="day-title">奥斯陆 → Myrdal → Flåm/Aurland</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon transport">⚓</div>
+        <div class="seg-content">
+          <div class="seg-title">到达奥斯陆，在市区短暂停留</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">10:00 到达</span>
+          </div>
+          <div class="seg-note">歌剧院、港口随意逛逛，下午出发前可寄存行李。</div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚂</div>
+        <div class="seg-content">
+          <div class="seg-title">火车 奥斯陆 → Myrdal</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">下午班次</span>
+            <span class="tag tag-tbd">价格待定 ~¥400–700</span>
+          </div>
+          <div class="seg-note">Bergen铁路沿线，高山雪原湖泊，本身已是景观铁路。在Myrdal换乘弗洛姆铁路下山。<br>
+          <a class="seg-link" href="https://www.vy.no/en/see-travel-suggestions?fromDateTime=2026-05-13T04%3A00%3A00.000Z&from=Oslo+S&fromExternalId=NSR%3ANSR%3AStopPlace%3A59872%2CRESROBOT%3A760000100&fromPosition=59.910357%2C10.753051&to=Myrdal+stasjon&toExternalId=NSR%3ANSR%3AStopPlace%3A222%2CENTUR%3ANSR%3AStopPlace%3A222&toPosition=60.735141%2C7.122762&fromCategories=W10&toCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9XQ&fromTariffZones=W10&toTariffZones=W10&passengers=W3siaWQiOjYwLCJhZ2UiOm51bGwsImRpc2NvdW50cyI6W10sImNhdGVnb3J5IjoiQWR1bHQiLCJuYW1lIjoiVm9rc2VuIiwiaW50ZXJyYWlsQ29kZSI6bnVsbH1d&addons=W3sidHlwZSI6ImJpY3ljbGUiLCJudW1iZXJUb0J1eSI6MH0seyJ0eXBlIjoibGFyZ2VfYW5pbWFsIiwibnVtYmVyVG9CdXkiOjB9LHsidHlwZSI6InNtYWxsX2FuaW1hbCIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJzdHJvbGxlciIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJ3aGVlbGNoYWlyIiwibnVtYmVyVG9CdXkiOjB9XQ&direction=OUTBOUND" target="_blank">→ vy.no 查询购票</a></div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚞</div>
+        <div class="seg-content">
+          <div class="seg-title">弗洛姆铁路 Myrdal → Flåm</div>
+          <div class="seg-meta">
+            <span class="tag tag-tbd">约 NOK 350–450</span>
+            <span class="tag tag-transport">约1小时，800米落差</span>
+          </div>
+          <div class="seg-note">20公里，瀑布峭壁，世界最陡铁路之一。沿途风景壮观，是整段旅程亮点之一。<br>
+          <a class="seg-link" href="https://www.vy.no/en/see-travel-suggestions?from=Myrdal+stasjon&fromDateTime=2026-05-13T01%3A07%3A48.000Z&to=Fl%C3%A5m+stasjon&fromExternalId=NSR%3ANSR%3AStopPlace%3A222%2CENTUR%3ANSR%3AStopPlace%3A222&toExternalId=NSR%3ANSR%3AStopPlace%3A58927%2CENTUR%3ANSR%3AStopPlace%3A58927&fromPosition=60.735141%2C7.122762&toPosition=60.863176%2C7.114409&fromCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9XQ&toCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RhdGlvbiIsIm5hbWUiOiJCdXMgc3RhdGlvbiJ9XQ&fromTariffZones=W10&toTariffZones=W10&passengers=W3siaWQiOjAsImFnZSI6bnVsbCwiZGlzY291bnRzIjpbXSwiY2F0ZWdvcnkiOiJBZHVsdCIsIm5hbWUiOiJWb2tzZW4iLCJpbnRlcnJhaWxDb2RlIjpudWxsfV0&addons=W3sidHlwZSI6ImJpY3ljbGUiLCJudW1iZXJUb0J1eSI6MH0seyJ0eXBlIjoibGFyZ2VfYW5pbWFsIiwibnVtYmVyVG9CdXkiOjB9LHsidHlwZSI6InNtYWxsX2FuaW1hbCIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJzdHJvbGxlciIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJ3aGVlbGNoYWlyIiwibnVtYmVyVG9CdXkiOjB9XQ" target="_blank">→ vy.no 查询购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">Flåm 或 Aurland（青旅/民宿）</span>
+      <span class="accom-price">¥250–380</span>
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">3</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月14日 周三</div>
+        <div class="day-title">峡湾精华：Flåm → Gudvangen → Voss → 奥斯陆</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon activity">🥾</div>
+        <div class="seg-content">
+          <div class="seg-title">Flåm/Aurland 峡湾边徒步&散步</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">早上</span>
+          </div>
+          <div class="seg-note">早起感受无游客的峡湾清晨。Aurland观景台（Stegastein）可俯瞰整个峡湾，步行或搭便车可达。峡湾游船（Flåm→Gudvangen）最早班9:30，赶不上后续巴士，本次暂不列入。</div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚌</div>
+        <div class="seg-content">
+          <div class="seg-title">巴士 Flåm → Voss</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">10:03 → 11:13</span>
+            <span class="tag tag-price">NOK 179 ≈ ¥120</span>
+            <span class="tag tag-transport">⚠️ 一天仅此一班，需提前15分钟线上购票</span>
+          </div>
+          <div class="seg-note"><a class="seg-link" href="https://www.vy.no/en/see-travel-suggestions?from=Fl%C3%A5m+stasjon&fromDateTime=2026-05-14T01%3A05%3A22.000Z&to=Voss+stasjon&fromExternalId=NSR%3ANSR%3AStopPlace%3A58927%2CENTUR%3ANSR%3AStopPlace%3A58927&toExternalId=NSR%3ANSR%3AStopPlace%3A59958%2CENTUR%3ANSR%3AStopPlace%3A59958&fromPosition=60.863176%2C7.114409&toPosition=60.62893%2C6.410571&fromCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RhdGlvbiIsIm5hbWUiOiJCdXMgc3RhdGlvbiJ9XQ&toCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RhdGlvbiIsIm5hbWUiOiJCdXMgc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RvcCIsIm5hbWUiOiIifSx7ImlkIjoibGlmdC1zdGF0aW9uIiwibmFtZSI6IiJ9XQ&fromTariffZones=W10&toTariffZones=W10&passengers=W3siaWQiOjAsImFnZSI6bnVsbCwiZGlzY291bnRzIjpbXSwiY2F0ZWdvcnkiOiJBZHVsdCIsIm5hbWUiOiJWb2tzZW4iLCJpbnRlcnJhaWxDb2RlIjpudWxsfV0&addons=W3sidHlwZSI6ImJpY3ljbGUiLCJudW1iZXJUb0J1eSI6MH0seyJ0eXBlIjoibGFyZ2VfYW5pbWFsIiwibnVtYmVyVG9CdXkiOjB9LHsidHlwZSI6InNtYWxsX2FuaW1hbCIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJzdHJvbGxlciIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJ3aGVlbGNoYWlyIiwibnVtYmVyVG9CdXkiOjB9XQ" target="_blank">→ vy.no 查询购票</a></div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚂</div>
+        <div class="seg-content">
+          <div class="seg-title">火车 Voss → 奥斯陆</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">18:06 → 23:58（推荐）</span>
+            <span class="tag tag-price">NOK 489 ≈ ¥335</span>
+          </div>
+          <div class="seg-note">也可选14:14班（NOK 629）更早到Oslo，但在Voss可多逛几小时。越早买越便宜。<br>
+          <a class="seg-link" href="https://www.vy.no/en/see-travel-suggestions?fromDateTime=2026-05-14T05%3A15%3A00.000Z&from=Voss+stasjon&fromExternalId=NSR%3ANSR%3AStopPlace%3A59958%2CENTUR%3ANSR%3AStopPlace%3A59958&fromPosition=60.62893%2C6.410571&to=Oslo&toExternalId=NSR%3ANSR%3AGroupOfStopPlaces%3A1%2CENTUR%3ANSR%3AGroupOfStopPlaces%3A1%2CRESROBOT%3A760000100%2CRESROBOT-CITY%3A760050100&toPosition=59.911076%2C10.748128&fromCategories=W3siaWQiOiJyYWlsd2F5LXN0YXRpb24iLCJuYW1lIjoiVHJhaW4gc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RhdGlvbiIsIm5hbWUiOiJCdXMgc3RhdGlvbiJ9LHsiaWQiOiJidXMtc3RvcCIsIm5hbWUiOiIifSx7ImlkIjoibGlmdC1zdGF0aW9uIiwibmFtZSI6IiJ9XQ&toCategories=W3siaWQiOiJjaXR5LXRvd24tdmlsbGFnZSIsIm5hbWUiOiIifV0&fromTariffZones=W10&toTariffZones=W10&passengers=W3siaWQiOjYwLCJhZ2UiOm51bGwsImRpc2NvdW50cyI6W10sImNhdGVnb3J5IjoiQWR1bHQiLCJuYW1lIjoiVm9rc2VuIiwiaW50ZXJyYWlsQ29kZSI6bnVsbH1d&addons=W3sidHlwZSI6ImJpY3ljbGUiLCJudW1iZXJUb0J1eSI6MH0seyJ0eXBlIjoibGFyZ2VfYW5pbWFsIiwibnVtYmVyVG9CdXkiOjB9LHsidHlwZSI6InNtYWxsX2FuaW1hbCIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJzdHJvbGxlciIsIm51bWJlclRvQnV5IjowfSx7InR5cGUiOiJ3aGVlbGNoYWlyIiwibnVtYmVyVG9CdXkiOjB9XQ&direction=OUTBOUND" target="_blank">→ vy.no 查询购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">奥斯陆（青旅）</span>
+      <span class="accom-price">¥180–280</span>
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">4</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月15日 周四</div>
+        <div class="day-title">奥斯陆 → 斯德哥尔摩</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon activity">🏙️</div>
+        <div class="seg-content">
+          <div class="seg-title">奥斯陆上午自由活动</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">上午</span>
+          </div>
+          <div class="seg-note">Vigeland雕塑公园（免费）、Viking Ship Museum等，或直接前往车站。</div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚂</div>
+        <div class="seg-content">
+          <div class="seg-title">火车 奥斯陆 → 斯德哥尔摩中央站</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">10:52 → 17:34</span>
+            <span class="tag tag-tbd">SEK 394起 ≈ ¥270（当前最低价）</span>
+            <span class="tag tag-transport">Vy Bus4You 889 + SJ 672</span>
+          </div>
+          <div class="seg-note">最快最便宜，非灵活票不可退。到达后傍晚可在市区逛逛。若未购，可查询当前最低价。<br>
+          <a class="seg-link" href="https://www.vy.se/en/see-travel-suggestions?from=Oslo+Bussterminal+%28Norge%29&fromExternalId=RESROBOT%3A760090001&fromPosition=59.911891%2C10.757077&to=Stockholm+Centralstation&toExternalId=RESROBOT%3A740000001&toPosition=59.330136%2C18.058151&fromDateTime=2026-05-15T07%3A50%3A00.000Z&operatorGroup=ALL&includeModes=bus%2Ctrain&passengers=W3siaWQiOjAsImFnZSI6bnVsbCwiZGlzY291bnRzIjpbXSwiY2F0ZWdvcnkiOiJBZHVsdCIsIm5hbWUiOiJBZHVsdCJ9XQ%3D%3D" target="_blank">→ vy.se 查询购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">斯德哥尔摩（青旅）</span>
+      <span class="accom-price">¥200–320</span>
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">5</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月16日 周五</div>
+        <div class="day-title">斯德哥尔摩 → 哥本哈根</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon activity">🏛️</div>
+        <div class="seg-content">
+          <div class="seg-title">斯德哥尔摩上午游览</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">全天</span>
+          </div>
+          <div class="seg-note">Gamla Stan老城、Vasa战舰博物馆、Djurgården岛，步行可达大部分景点。</div>
+        </div>
+      </div>
+      <div class="segment">
+        <div class="seg-icon transport">🚂</div>
+        <div class="seg-content">
+          <div class="seg-title">火车/巴士 斯德哥尔摩 → 哥本哈根</div>
+          <div class="seg-meta">
+            <span class="tag tag-tbd">待定</span>
+            <span class="tag tag-price">¥420–597</span>
+          </div>
+          <div class="seg-note">选项A：火车 05:33出发，约¥597（需住一晚CPH或提前出发）<br>选项B：夜间大巴 23:25出发，约¥420（5.16晚出发，5.17上午到，省一晚住宿）<br>
+          <a class="seg-link" href="https://www.omio.cn/app/search-frontend/results/LC3EF6884F1874BCAB926B0E052D0707F/train?locale=zh" target="_blank">→ Omio 查询购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">夜间大巴上 / 哥本哈根（视选择而定）</span>
+      <span class="accom-price">¥0–200</span>
+    </div>
+  </div>
+
+  <!-- D6 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">
+        <span class="day-n">Day</span>
+        <span class="day-num">6</span>
+      </div>
+      <div class="day-info">
+        <div class="day-date">5月17日 周六</div>
+        <div class="day-title">哥本哈根 → 奥胡斯（归队）</div>
+      </div>
+    </div>
+    <div class="day-body">
+      <div class="segment">
+        <div class="seg-icon transport">🚌</div>
+        <div class="seg-content">
+          <div class="seg-title">FlixBus 哥本哈根 → 奥胡斯</div>
+          <div class="seg-meta">
+            <span class="tag tag-time">多班可选，约3.5小时</span>
+            <span class="tag tag-price">¥169–215</span>
+          </div>
+          <div class="seg-note">推荐13:30班（¥192）或17:10班（¥169），需在18:00前到奥胡斯集合。<br>
+          <a class="seg-link" href="https://www.omio.cn/app/search-frontend/results/L27548E9BAC39425382E485EB8340B7FC/bus?locale=zh" target="_blank">→ Omio 查询购票</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="accom-bar">
+      <span class="accom-label">住宿</span>
+      <span class="accom-name">奥胡斯（归队）</span>
+      <span class="accom-price">—</span>
+    </div>
+  </div>
+
+  <!-- BUDGET SUMMARY -->
+  <div class="total-table">
+    <div class="total-table-header">
+      <span>费用预估汇总</span>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#c8e4ed"></div>交通</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c8e8c8"></div>住宿</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fde8c8"></div>饮食</div>
+      </div>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚢 DFDS游轮 CPH→Oslo（1间舱，最多4人共住）</span>
+      <span class="amount">¥530／间</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚂 Oslo→Myrdal 火车</span>
+      <span class="amount">¥400–700</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚞 弗洛姆铁路 Myrdal→Flåm</span>
+      <span class="amount">¥240–310</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚌 Flåm→Voss 巴士</span>
+      <span class="amount">¥120</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚂 Voss→Oslo 火车</span>
+      <span class="amount">¥265–430</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚌 Oslo→斯德哥尔摩</span>
+      <span class="amount">¥270起</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚂/🚌 斯德哥尔摩→哥本哈根</span>
+      <span class="amount">¥420–597</span>
+    </div>
+    <div class="total-row transport">
+      <span class="label">🚌 哥本哈根→奥胡斯 FlixBus</span>
+      <span class="amount">¥169–215</span>
+    </div>
+    <div class="total-row accom">
+      <span class="label">🏠 住宿 × 4晚（青旅，人均）</span>
+      <span class="amount">¥830–1,180</span>
+    </div>
+    <div class="total-row food">
+      <span class="label">🍜 饮食（挪威贵，瑞典稍低）</span>
+      <span class="amount">¥600–900</span>
+    </div>
+    <div class="total-row sum">
+      <span class="label">人均合计预估</span>
+      <span class="amount">¥3,844–5,182</span>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>⚠️ 待确认事项：</strong><br>
+    1. 5.13 Oslo→Myrdal 具体班次和票价（尽快购买，越早越便宜）<br>
+    2. 5.16 斯德哥尔摩→哥本哈根：选火车（¥597）还是夜间大巴（¥420）<br>
+    3. Flåm/Aurland 住宿预订<br>
+    4. 奥斯陆 住宿预订<br>
+    5. 斯德哥尔摩 住宿预订<br><br>
+    <strong>💡 提示：</strong>挪威物价高，建议超市买食材；所有VY巴士票需提前15分钟线上购买；Flåm→Voss巴士一天仅一班，务必不要错过。
+  </div>
+
+</div>
+</body>
+</html>
